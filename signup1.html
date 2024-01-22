@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoginPage</title>
+    <style>
+     
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url(https://c4.wallpaperflare.com/wallpaper/815/8/5/a-pleasant-morning-sunset-over-the-body-of-water-photo-wallpaper-preview.jpg);
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .wrapper {
+            width: 420px;
+            background: transparent;
+            border: -10px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(20px);
+            box-shadow: 0, 0, 0,0.2;
+            color: #fff;
+            border-radius: 10px;
+            padding: 30px 40px;
+        }
+        
+        .wrapper h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+        
+        .wrapper .input-box {
+            position: relative;
+            width: 100%;
+            height: 30px;
+            margin: 20px 0;
+        }
+        
+        .input-box input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 40px;
+            font-size: 16px;
+            color: #fff;
+            padding: 20px 45px 20px 20px;
+        }
+        
+        .input-box input::placeholder {
+            color: #fff;
+        }
+        
+        .wrapper .btn {
+            width: 100%;
+            height: 45px;
+            background: #fff;
+            border: none;
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            cursor:pointer;
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .wrapper .terms-conditions {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14.5px;
+            margin: -15px 0 15px;
+            padding: 10px 20px 15px 15px;
+            cursor: pointer;
+        }
+        
+        .terms-conditions label input {
+            accent-color: #fff;
+            margin-right: 3px;
+        }
+        
+        .terms-conditions a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .terms-conditions a:hover {
+            text-decoration: underline;
+        }
+    
+        
+    
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <form onsubmit="return validateForm()">
+            <h1>Signup</h1>
+            <div class="input-box"><input type="text" placeholder="Email" id="email" required></div>
+            <div class="input-box"> <input type="tel" placeholder="Phone Number" id="phoneNumber" required></div>   
+            <div class="input-box"> <input type="password" placeholder="Password" id="password" required></div>
+            <div class="input-box"><input type="password" placeholder="Confirm Password" id="confirmPassword" required></div> 
+            <div class="terms-conditions">
+                <label><input type="checkbox" id="terms"> I agree to the <a href="loginpage.html">Terms and Conditions</a></label>
+            </div>
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+    </div>
+
+    
+    <script>
+        function validateForm() {
+            // Validate password
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!isValidPassword(password)) {
+                alert("Password must contain at least one small letter, one capital letter, one special character, and be at least 6 characters long.");
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+
+            // Validate Indian phone number
+            var phoneNumber = document.getElementById('phoneNumber').value;
+            if (!isValidPhoneNumber(phoneNumber)) {
+                alert("Invalid phone number.");
+                return false;
+            }
+
+            // Validate email format
+            var email = document.getElementById('email').value;
+            if (!isValidEmail(email)) {
+                alert("Invalid email format. It should be in the format specified.");
+                return false;
+            }
+
+            // Validate terms and conditions checkbox
+            var termsCheckbox = document.getElementById('terms');
+            if (!termsCheckbox.checked) {
+                alert("Please agree to the terms and conditions.");
+                return false;
+            }
+
+            // Save form data to local storage
+            saveToLocalStorage(email, phoneNumber);
+
+            // Show alert after successful submission
+            alert("Sign up successful! .");
+
+            // Prevent the form from submitting (remove this line if you want the form to submit)
+            return false;
+        }
+
+        function isValidPassword(password) {
+            
+            //  At least one small letter, one capital letter, one special character, and minimum length 6
+            var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&()+])[A-Za-z\d!@#$%^&*()+]{6,}$/;
+            return passwordRegex.test(password);
+        }
+
+        function isValidPhoneNumber(phoneNumber) {
+            // Validate Indian phone number
+            var phoneNumberRegex = /^[6-9]\d{9}$/;
+            return phoneNumberRegex.test(phoneNumber);
+        }
+
+        function isValidEmail(email) {
+            
+            // Example: /^[a-zA-Z]+\.[a-zA-Z]+_[0-9]{4}@woxsen\.edu\.in$/
+            var emailRegex = /^[a-zA-Z]+\.[a-zA-Z]+_[0-9]{4}@woxsen\.edu\.in$/;
+            return emailRegex.test(email);
+        }
+
+        function saveToLocalStorage(email, phoneNumber) {
+            // Get existing data from local storage (if any)
+            var existingData = localStorage.getItem('user_data') ? JSON.parse(localStorage.getItem('user_data')) : [];
+
+            // Add new data to the array
+            existingData.push({ email: email, phoneNumber: phoneNumber });
+
+            // Save the updated array back to local storage
+            localStorage.setItem('user_data', JSON.stringify(existingData));
+        }
+    </script>
+</body>
+</html>

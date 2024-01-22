@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        
+       * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url(https://c4.wallpaperflare.com/wallpaper/815/8/5/a-pleasant-morning-sunset-over-the-body-of-water-photo-wallpaper-preview.jpg);
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .wrapper {
+            width: 420px;
+            background: transparent;
+            border: -10px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(20px);
+            box-shadow: 0, 0, 0,0.2;
+            color: #fff;
+            border-radius: 10px;
+            padding: 30px 40px;
+        }
+        
+        .wrapper h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+        
+        .wrapper .input-box {
+            position: relative;
+            width: 100%;
+            height: 30px;
+            margin: 20px 0;
+        }
+        
+        .input-box input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 40px;
+            font-size: 16px;
+            color: #fff;
+            padding: 20px 45px 20px 20px;
+        }
+        
+        .input-box input::placeholder {
+            color: #fff;
+        }
+        
+        .wrapper .btn {
+            width: 100%;
+            height: 45px;
+            background: #fff;
+            border: none;
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            cursor:pointer;
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .wrapper .terms-conditions {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14.5px;
+            margin: -15px 0 15px;
+            padding: 10px 20px 15px 15px;
+            cursor: pointer;
+        }
+        
+        .terms-conditions label input {
+            accent-color: #fff;
+            margin-right: 3px;
+        }
+        
+        .terms-conditions a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .terms-conditions a:hover {
+            text-decoration: underline;
+        }
+    
+        
+    
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <form onsubmit="return validateLoginForm()">
+            <h1>Login</h1>
+            <div class="input-box">
+                <input type="text" placeholder="email" id="email" name="email" autocomplete="username" required>
+            </div> 
+            <div class="input-box">  
+                <input type="password" placeholder="Password" id="password" name="password" autocomplete="current-password" required>
+            </div>
+            <div class="remember-forgot">
+                <label><input type="checkbox">Remember Me </label>
+                <a href="#">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn">Login</button>
+            <div class="registration-link">
+                <p>Don't have an account? <a href="signup1.html">Sign Up</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function validateLoginForm() {
+    var emailInput = document.getElementById('email');
+    var passwordInput = document.getElementById('password');
+
+    // Validate email format
+    var emailRegex = /^[a-zA-Z]+\.[a-zA-Z]+_[0-9]+@woxsen\.edu\.in$/;
+    if (!emailRegex.test(emailInput.value)) {
+        console.log('Invalid email format');
+        return false;
+    }
+
+    // Validate password format
+    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&()+])[A-Za-z\d!@#$%^&*()+]{6,}$/;
+    if (!passwordRegex.test(passwordInput.value)) {
+        console.log('Invalid password format');
+        return false;
+    }
+
+    // Check if login details match signup details (mock implementation)
+    var signupEmail = "example.student_1234@woxsen.edu.in";
+    var signupPassword = "Password123!";
+
+    console.log('Entered Email:', emailInput.value);
+    console.log('Entered Password:', passwordInput.value);
+
+    if (emailInput.value === signupEmail && passwordInput.value === signupPassword) {
+        console.log('Login successful');
+        alert('Login successful'); // Add an alert for testing
+        return true;
+    } else {
+        console.log('Login Successful.');
+        alert('Login Successful');
+        return false;
+    }
+}
+
+    </script>
+</body>
+</html>
